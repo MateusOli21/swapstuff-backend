@@ -2,6 +2,17 @@ const { Router } = require('express');
 
 const routes = new Router();
 
-routes.get('/', (req, res) => res.status(200).json({ message: 'ok' }));
+const authMiddleware = require('./app/middlewares/auth');
+
+const UserController = require('./app/controllers/UserController');
+const SessionController = require('./app/controllers/SessionController');
+
+routes.post('/', UserController.store);
+
+routes.post('/sessions', SessionController.store);
+
+routes.use(authMiddleware);
+
+routes.put('/users/:id', UserController.update);
 
 module.exports = routes;
