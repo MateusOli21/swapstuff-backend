@@ -13,6 +13,6 @@ routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
 
-routes.put('/users/:id', UserController.update);
+routes.put('/users', UserController.update);
 
 module.exports = routes;
