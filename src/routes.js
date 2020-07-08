@@ -16,6 +16,8 @@ routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
 
+routes.get('/products', ProductController.index);
+routes.get('/products/:id', ProductController.indexByCategory);
 routes.post('/products', ProductController.store);
 routes.put('/products/:id', ProductController.update);
 routes.delete('/products/:id', ProductController.delete);

@@ -4,13 +4,13 @@ const Yup = require('yup');
 
 class UserController {
   async store(req, res) {
-    const schma = Yup.object().shape({
+    const schema = Yup.object().shape({
       username: Yup.string().required(),
       email: Yup.string().required(),
       password: Yup.string().required().min(6),
     });
 
-    if (!(await schma.isValid(req.body))) {
+    if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
@@ -101,8 +101,6 @@ class UserController {
     } catch (err) {
       return res.status(500).json({ error: err });
     }
-
-    res.status(200).json({ message: 'ok' });
   }
 }
 

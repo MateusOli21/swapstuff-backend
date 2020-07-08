@@ -2,6 +2,43 @@ const knex = require('../../database/connection');
 const Yup = require('yup');
 
 class ProductController {
+  async index(req, res) {
+    try {
+      const user_id = req.userId;
+      const listedProducts = await knex('products')
+        .select('id', 'category_id', 'file_id', 'name', 'description')
+        .where({ user_id });
+
+      res.status(200).json(listedProducts);
+    } catch (err) {
+      return res.status(500).json({ error: err });
+    }
+  }
+
+  async indexByCategory(req, res) {
+    try {
+      const { id: category_id } = req.params;
+
+      const categoryExists = await knex('categories')
+        .where({ id: category_id })
+        .first();
+
+      if (!categoryExists) {
+        return res.status(400).json({ error: 'Category does not exist.' });
+      }
+
+      const user_id = req.userId;
+
+      const categoryProducts = await knex('products')
+        .select('id', 'category_id', 'file_id', 'name', 'description')
+        .where({ user_id, category_id });
+
+      res.status(200).json(categoryProducts);
+    } catch (err) {
+      return res.status(500).json({ error: err });
+    }
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       category_id: Yup.number().required(),
