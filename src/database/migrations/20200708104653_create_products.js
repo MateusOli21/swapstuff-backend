@@ -7,7 +7,7 @@ exports.up = function (knex) {
       .notNullable()
       .references('id')
       .inTable('categories');
-    table.integer('file_id').notNullable().references('id').inTable('files');
+    table.integer('file_id').nullable().references('id').inTable('files');
     table.string('name').notNullable();
     table.string('description').nullable();
     table.timestamps(true, true);

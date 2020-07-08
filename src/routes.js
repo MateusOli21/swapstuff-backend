@@ -6,13 +6,18 @@ const authMiddleware = require('./app/middlewares/auth');
 
 const UserController = require('./app/controllers/UserController');
 const SessionController = require('./app/controllers/SessionController');
+const ProductController = require('./app/controllers/ProductController');
 
-routes.post('/', UserController.store);
+routes.post('/users', UserController.store);
 
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
+
+routes.post('/products', ProductController.store);
+routes.put('/products/:id', ProductController.update);
+routes.delete('/products/:id', ProductController.delete);
 
 module.exports = routes;
