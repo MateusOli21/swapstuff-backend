@@ -4,7 +4,7 @@ exports.up = function (knex) {
     table.string('username').notNullable();
     table.string('email').notNullable();
     table.string('password').notNullable();
-    table.integer('file_id').notNullable().references('id').inTable('files');
+    table.integer('file_id').nullable().references('id').inTable('files');
     table.timestamps(true, true);
   });
 };
